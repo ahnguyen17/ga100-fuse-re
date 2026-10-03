@@ -44,3 +44,29 @@ for 16 Gb dies). The "96 GiB" figure required reviving FBP 6,11 which are DEFECT
 rows 26/27) — dead silicon, not disable-only. The append record itself (0x420004C1, clearing
 disable bits 1,4 → mask 0x840) is unchanged. Geometry follow-up: whether a 20-FBPA Hynix
 config keeps CFG1 0x02779000 with only LMR adjustment is under analysis.
+
+## Addendum 2 (2026-10-03): VRAM sweep — 80 GiB confirmed, append recipe INCOMPLETE, RIR-for-VRAM dead
+
+Full sweep: `artifacts/vram-sweep.md`. Three material findings:
+
+1. **Capacity: 80 GiB confirmed** (10 FBP × 20 FBPA × 4 GiB). The 96 GiB figure required
+   reviving defective FBP 6,11 — dead silicon.
+2. **⚠️ The published append `0x420004C1` is NOT a complete revival recipe.** Offline scanning
+   found THREE separate 24-bit expanded partition-disable masks in chain 1 (bit-fields at
+   offsets 5:3, 6:11, 19:15), each reading `0xc0330c` (Hynix) / `0x000c30` (Samsung) and each
+   independently reproducing the cards' expanded FBP masks. The append changes only the
+   (1,19) field and leaves all three untouched. Until those masks are shown to be derived
+   rather than independent enables, no single-record append can claim FBPA revival.
+3. **RIR-for-VRAM: definitively dead.** All 2,048 addresses reachable from the Hynix slot
+   `0x0923` were enumerated against the actual FF pool — zero can change or orphan
+   chain-1/offset-19. (General note: "RIR only forces ones" is false for a *blank* slot with
+   DATA=0, but the Samsung card has no disable-only FBP to reclaim anyway.)
+
+**Geometry solved on paper:** LMR encodes `MiB = MAG[9:4] << SCALE[3:0]`; the coherent
+Hynix 20-FBPA pair is `CFG1=0x02779000` + `LMR=0x28B` + `targetFbBytes=0x1400000000` —
+identical to the A100 PCIe 80 GB pair. The open problem is enabling/training the partitions,
+not the constants.
+
+No volatile path survives (CTRL overrides fused off; runtime CFG1/LMR port-gated; no
+host-injectable FF shadow cache; IFF-skip unsupported; unknown chains are research, not
+transport). Ranked paths and the single evidence that would unlock each: see the sweep.
