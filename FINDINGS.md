@@ -88,3 +88,14 @@ We need, in exchange, any one of:
 
 Findings attributed by date; no names. Happy to file this as wiki pages if that's the
 preferred venue.
+
+## Addendum (2026-10-03): external restatement confirms the corrected burn list
+
+A cleaner restatement of the redirect mechanism from the same ecosystem ("8GB poisoned RIR
+record explained", archived in `artifacts/`) now states **"Five more fuse bits have been
+blown"** for the 0x0923 → address-9193 redirect — agreeing with our corrected list
+**[2,7,9,10,15] → 0x8FA7** and superseding the earlier six-bit list. All other numbers in the
+restatement verify against our dump: address part 0x248 (3 bits blown), data/enable = 11
+(monotonic-only), address bit 3 → chainId bits [7:0] of any target row immutable, blown row
+bits {1,4} → reachable targets = 1 in 4 rows (supersets of row 18), row field 0x11F → row 287,
+bit-within-row 9 → offset 39 → 47 under the layout above.
