@@ -33,3 +33,14 @@ context > 64 GB) is the specific need.
 
 Volatile paths all confirmed dead earlier: CTRL_OPT override fused off (FUSE_EN_SW_OVERRIDE=0,
 all 170HX), CFG1/LMR runtime writes value-gated at the port (Aug 16 proof).
+
+---
+
+## CORRECTION (2026-10-03): target is 80 GiB, not 96 GiB
+
+Capacity model error in the original note: FBP 1,4 = 2 FBP × 2 FBPA × 4 GiB = **+16 GiB →
+80 GiB total** (10 FBP, 20 FBPA — the same FBPA count as the Samsung 40 GB card, at 4 GiB/FBPA
+for 16 Gb dies). The "96 GiB" figure required reviving FBP 6,11 which are DEFECTIVE (hard
+rows 26/27) — dead silicon, not disable-only. The append record itself (0x420004C1, clearing
+disable bits 1,4 → mask 0x840) is unchanged. Geometry follow-up: whether a 20-FBPA Hynix
+config keeps CFG1 0x02779000 with only LMR adjustment is under analysis.

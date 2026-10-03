@@ -18,8 +18,8 @@ unlocked via [cmpunlocker](https://github.com/amoghmunikote/cmpunlocker), nvidia
 3. **⚠️ Burn-list erratum** (`FINDINGS.md` §2): a circulated RIR burn list
    `[2,6,7,10,12,13]` is WRONG — it decodes to a different redirect (row 123). Correct bits:
    `[2,7,9,10,15]` → `0x8FA7`. Do not burn the wrong list.
-4. **64 → 96 GB recipe** (Hynix 8 GB cards, FBP mask `0x852`) — FF append `0x420004C1`
-   (chain 1 / offset 19) clears disable bits 1,4 → +32 GB theoretical. Gates and risks:
+4. **64 → 80 GB recipe** (Hynix 8 GB cards, FBP mask `0x852`) — FF append `0x420004C1`
+   (chain 1 / offset 19) clears disable bits 1,4 → +16 GiB theoretical (80 GiB total; the earlier 96 GiB claim mis-assumed reviving defective FBP 6,11 as well — dead silicon). Gates and risks:
    `artifacts/fbp-append-96gb-path.md`, burn-readiness analysis:
    `artifacts/rir-burn-readiness-gates.md` (current verdict: NO-GO on a working card until
    FF/RIR analog-write evidence exists).
