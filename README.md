@@ -24,6 +24,9 @@ unlocked via [cmpunlocker](https://github.com/amoghmunikote/cmpunlocker), nvidia
    `artifacts/rir-burn-readiness-gates.md` (current verdict: NO-GO on a working card until
    FF/RIR analog-write evidence exists).
 
+
+- `FINDINGS-NOV12-CORROBORATION.md` — 2026-11-12: Kate's VFI publication independently corroborates our FF decode (her chain-1/block-19 FBP burn == our `0x420004C1` recipe); per-card floorsweep re-audit (80 GiB latent on 8 GB; 10 GB compute-only); glitch tooling survey (pico-ga100vfi I2C path); readiness-gate status change. Read-only, nothing burned by us.
+
 ## Contents
 
 - `FINDINGS.md` — the full 2026-10-02 field report (decode, verification, corrections, trade offer)
